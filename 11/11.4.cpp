@@ -7,6 +7,8 @@
 #include <ctime>
 using namespace std;
 
+int** fill(int* arr, int row,int col);
+int show(int* arr, int row,int col);
 int main()
 {
     setlocale (LC_ALL, "Ru");
@@ -18,8 +20,32 @@ int main()
     cout<<"Введите количество колон: ";
     cin>>col;
 
-   
+    int *arr[col]={};
+    int arr2[row];
+
+for (int i = 0; i < row; i++)
+
+{
     
+    *arr[i]=**fill(*arr,row,col);
+}
+
+    
+    show(*arr, row, col);
     return 0;
 }
 
+int **fill(int* arr, int row,int col){
+    for (int j = 0; j < col; j++)
+    {
+        arr[j]=rand()%40+10;
+    }
+}
+
+int show(int* arr, int row,int col){
+    for (int i = 0; i < col; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    
+}

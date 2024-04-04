@@ -4,13 +4,17 @@ using namespace std;
 int main()
 {
     double **p=0;
-    double x,*y;
-    x=2;
-    y=&x;
-    p=&y;
+    p=new double*;
+    *p=new double;
+    
+    cout<<**p<<endl<<*p<<endl<<p;
+delete *p;
+delete p;
+    
+    
+   
 
-
-    cout<<**p;
+    
     
 //     p=new double*;
 //     *p=new double;

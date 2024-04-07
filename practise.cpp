@@ -50,7 +50,7 @@ int main()
  op2 = strtod(str = endptr, &endptr);
  
  int i;
- for (i = 0; i < noper; i++)
+ for (i = 0; i < noper; ++i)
  {
  if (oper == coper[i]) {
  cout << op1 << ' ' << oper << ' ' << op2 << " = "

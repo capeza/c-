@@ -12,9 +12,9 @@ int main()
     cout<<"Введите высоту треугольника: ";
     cin>>n;
     
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; ++i)
     {
-        for (int j = 0; j < n*2-1; j++)
+        for (int j = 0; j < n*2-1; ++j)
         {
             if (j+1>=n-i&&j+1<=n+i)
             {

@@ -35,6 +35,7 @@ int main()
         fill_arr(link, size);
         show_arr(link, size);
         
+
         cout << "Для продолжения введите 1, для выхода 0: ";
         cin >> choose;
     }

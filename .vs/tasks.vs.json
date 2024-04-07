@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-11.4",
+      "appliesTo": "11/11.4.cpp",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-c-",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}

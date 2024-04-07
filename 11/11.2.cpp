@@ -11,61 +11,61 @@
 using namespace std;
 
 // определение функций
-void new_memory(double *link, int size);
-void fill_arr(double *link, int size);
-void show_arr(double *link, int size);
-void delete_memory(double *link);
+void new_memory(double*& link, int size);
+void fill_arr(double* link, int size);
+void show_arr(double* link, int size);
+void delete_memory(double* link);
 
 int main()
 {
-    setlocale(LC_ALL, "Ru");
-    srand(time(NULL));
+	setlocale(LC_ALL, "Ru");
+	srand(time(NULL));
 
-    // задаём переменные
-    int size{}, choose;
-    double arr[1];
-    double *link = arr;
-    cout << "введите длину массива: ";
-    cin >> size;
+	// задаём переменные
+	int size{}, choose = 1;
+	double arr[1];
+	double* link = arr;
+	cout << "введите длину массива: ";
+	cin >> size;
 
-    // вызов функций
-    while (choose != 0)
-    {
-        new_memory(link, size);
-        fill_arr(link, size);
-        show_arr(link, size);
-        
+	// вызов функций
+	while (choose != 0)
+	{
+		new_memory(link, size);
+		fill_arr(link, size);
+		show_arr(link, size);
+		delete_memory(link);
 
-        cout << "Для продолжения введите 1, для выхода 0: ";
-        cin >> choose;
-    }
-    delete_memory(link);
-    return 1;
+		cout << "Для продолжения введите 1, для выхода 0: ";
+		cin >> choose;
+	}
+
+	return 1;
 }
 
 // выполнение функций
-void new_memory(double *link, int size)
+void new_memory(double*& link, int size)
 {
-    link = new double[size];
+	link = new double[size];
 }
 
-void fill_arr(double *link, int size)
+void fill_arr(double* link, int size)
 {
-    for (int i = 0; i < size; ++i)
-    {
-        link[i] = rand() % 89 + 10;
-    }
+	for (int i = 0; i < size; ++i)
+	{
+		link[i] = rand() % 89 + 10;
+	}
 }
 
-void show_arr(double *link, int size)
+void show_arr(double* link, int size)
 {
-    for (int i = 0; i < size; ++i)
-    {
-        cout << link[i] << " ";
-    }
+	for (int i = 0; i < size; ++i)
+	{
+		cout << link[i] << " ";
+	}
 }
 
-void delete_memory(double *link)
+void delete_memory(double* link)
 {
-    delete[] link;
+	delete[] link;
 }

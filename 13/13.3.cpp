@@ -1,3 +1,7 @@
+// 3. Преобразовать строки двумерного массива в столбцы.
+// Класс будет содержать два метода: один заполнит массив значениями, 
+// второй произведет замену значений строк на значения столбцов.
+
 #include <iostream>
 #include <ctime>
 using namespace std;
@@ -13,9 +17,9 @@ public:
         cin >> line;
         cout << "Enter col amount: ";
         cin >> col;
-        for (int i = 0; i < line; i++)
+        for (int i = 0; i < line; ++i)
         {
-            for (int j = 0; j < col; j++)
+            for (int j = 0; j < col; ++j)
             {
                 arr[i][j] = rand() % 9+1;
             }
@@ -24,9 +28,9 @@ public:
 
     void show()
     {
-        for (int i = 0; i < line; i++)
+        for (int i = 0; i < line; ++i)
         {
-            for (int j = 0; j < col; j++)
+            for (int j = 0; j < col; ++j)
             {
                 cout<<arr[i][j]<<" ";
             }
@@ -37,9 +41,9 @@ public:
 
     void change()
     {
-        for (int i = 0; i < col; i++)
+        for (int i = 0; i < col; ++i)
         {
-            for (int j = 0; j < line; j++)
+            for (int j = 0; j < line; ++j)
             {
                 if (i!=j&&i>=1&&j<i)
                 {

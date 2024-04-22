@@ -1,14 +1,17 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main()
 {
     setlocale (LC_ALL, "Ru");
-    int a=3;
-    int &x=a;
-    cout<<x<<endl<<&x<<endl;
-    int*y=&x;
-    cout<<y<<endl<<*y<<endl<<&y;
+    
+    vector<int> myVector = {1,5,7,34,3,2,43,5,6};
 
-    return 0;
+    vector<int>::iterator it;
+
+    it = myVector.begin();
+    
+    cout<<*it<<endl;
+        return 0;
 }

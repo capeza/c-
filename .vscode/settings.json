@@ -4,5 +4,6 @@
         "ostream": "cpp",
         "ctime": "cpp",
         "new": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

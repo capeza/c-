@@ -1,9 +1,15 @@
 {
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\build\\x64-Debug",
+      "out\\install\\x64-Debug"
+    ]
+  },
   "ExpandedNodes": [
     "",
-    "\\11",
+    "\\end",
     "\\start on windows"
   ],
-  "SelectedNode": "\\start on windows\\start on windows.sln",
+  "SelectedNode": "\\start on windows\\main.cpp",
   "PreviewInSolutionExplorer": false
 }

@@ -4,7 +4,7 @@ project(cplusplus VERSION 0.1.0 LANGUAGES CXX)
 include(CTest)
 enable_testing()
 
-add_executable(cplusplus practice/practice.cpp)
+add_executable(cplusplus end/vector.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

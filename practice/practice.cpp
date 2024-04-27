@@ -14,9 +14,9 @@ int main()
     
     myVector.erase(i, i+3);
     
-
-
-    
+myVector.clear();
+cout<<myVector.size()<<endl;
+    cout<<myVector[0];
     
     for (vector<int>::iterator i=myVector.begin(); i!=myVector.end(); ++i) {
     cout<<*i<<endl;

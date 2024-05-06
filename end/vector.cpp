@@ -9,29 +9,38 @@ template <typename type>
 class vector {
 private:
   type *array;
-  int size{};
+  
   int number{};
   int *index{};
   type *temp; 
 
 public:
+  int size{};
+  int capacity{};
   //создание пустого вектора
-  vector() { array = new type[size]; }
+  vector() { 
+    array = new type[capacity]; 
+    
+    }
 
   //создание вектора с необходимым количеством элементов
-  vector(int size) : size(size) {
-    array = new type[size];
-    for (int i = 0; i < size; i++) {
+  vector(int capacity) : capacity(capacity) {
+    array = new type[capacity+1];
+    for (int i = 0; i < capacity; i++) {
       array[i] = 0;
     }
+    this->size=capacity;
+    this->capacity+=1;
   }
 
   //создание вектора с необходимым количеством элементов и необходимым нам числом
-  vector(int size, int number) : size(size), number(number) {
-    array = new type[size];
-    for (int i = 0; i < size; i++) {
+  vector(int capacity, int number) : capacity(capacity), number(number) {
+    array = new type[capacity+1];
+    for (int i = 0; i < capacity; i++) {
       array[i] = number;
     }
+    this->size=capacity;
+    this->capacity+=1;
   }
 
   //создание вектора состоящего из символов
@@ -43,12 +52,19 @@ public:
             array[i] = word[i];
         }
         array[size] = '\0'; // Добавляем нулевой символ в конец массива
+        capacity=size+2;
     }
-
+vector(initializer_list<type> list) : size(list.size()), array(new type[size]) {
+        int i = 0;
+        for (auto& element : list) {
+            array[i++] = element;
+        }
+        this->capacity=size+1;
+    }
   //очищение памяти
   ~vector() { 
     delete[] array; 
-    }
+  }
   
 //элемент по индексу с проверкой
 type at(type position){
@@ -109,7 +125,7 @@ type insert(type add,type volue){
     delete[] temp;
 }
 
-// добавление элемента на определенную позицию
+// добавление ряда элементов на определенную позицию
 type insert(type add, type n, type volue) {
   temp = new type[size];
   for (int i = 0; i < size; i++) {
@@ -135,37 +151,41 @@ type insert(type add, type n, type volue) {
   delete[] temp;
 }
 
-  //перегрузка оператора []
-  type& operator[](int position) {
-    index=&position;
-    return array[position];
-  };
-  //перегрузка оператора =
-  type& operator=(int count) {
-    array[*index]=count;
-    index=nullptr;
-   return 0;
+// перегрузка оператора []
+type &operator[](int position) {
+  index = &position;
+  return array[position];
 };
 
-  
+// перегрузка оператора =
+type &operator=(int count) {
+  array[*index] = count;
+  index = nullptr;
+  this->size+=1;
+  return 0;
 };
 
-void show(int *arr, int n) {
-  for (int i = 0; i < n; i++) {
-    cout << arr[i];
+
+};
+
+template<typename type>
+void show(type *arr){
+  for (int i = 0; typeid(arr[i])==typeid(int*); ++i){
+  cout << &arr[i]<<" ";
   }
 }
 
 int main() {
   setlocale(LC_ALL, "ru");
 
-  vector<int> numbers1(3);
+  vector<int> numbers1{0,1,2,3,4};
   vector<int> numbers2(3, 4);
   vector<string> word("hello");
 
-numbers1[0] = 0;
-numbers1[1] = 1;
-numbers1[2] = 2;
+// numbers1[0] = 0;
+// numbers1[1] = 1;
+// numbers1[2] = 2;
+// numbers1[3] = 3;
 
 
 // cout << numbers1.at(4)<<endl;
@@ -173,22 +193,29 @@ numbers1[2] = 2;
 // cout<<numbers1.front()<<endl;
 
 
-  for (int i=0; i < 3; i++) {
-    cout << numbers1[i];
-  }
-cout<<endl;
+cout<<numbers1.capacity<<endl;
+cout<<numbers1.size<<endl;
 
-numbers1.push_back(4);
-for (int i=0; i < 4; i++) {
+  for (int i=0; i < 6; i++) {
+    if (typeid(numbers1[i])!=typeid(int*)) {
     cout << numbers1[i];
+    }
   }
 cout<<endl;
+show(&numbers1);
 
-numbers1.push_back(5);
-for (int i=0; i < 5; i++) {
-    cout << numbers1[i];
-  }
-cout<<endl;
+
+// numbers1.push_back(4);
+// for (int i=0; i < 9; i++) {
+//     cout << numbers1[i];
+//   }
+// cout<<endl;
+
+// numbers1.push_back(5);
+// for (int i=0; i < 5; i++) {
+//     cout << numbers1[i];
+//   }
+// cout<<endl;
 
 // numbers1.insert(9, 4);
 // numbers1.insert(5, 3);

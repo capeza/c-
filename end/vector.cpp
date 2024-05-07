@@ -1,27 +1,24 @@
 #include <iostream>
-#include <ostream>
+
 #include <string>
 using namespace std;
-void show(int *arr, int n);
+
 template <typename type> 
 
 
 class vector {
 private:
-  type *array;
   
   int number{};
   int *index{};
   type *temp; 
 
 public:
+  type *array;
   int size{};
   int capacity{};
   //создание пустого вектора
-  vector() { 
-    array = new type[capacity]; 
-    
-    }
+  vector() { array = new type[capacity]; }
 
   //создание вектора с необходимым количеством элементов
   vector(int capacity) : capacity(capacity) {
@@ -45,22 +42,25 @@ public:
 
   //создание вектора состоящего из символов
   vector(string word) {
-        size = word.size();
-        array = new type[size + 1]; // Добавляем 1 для нулевого символа '\0'
-        // Копируем содержимое строки в массив
-        for (int i = 0; i < size; ++i) {
-            array[i] = word[i];
-        }
-        array[size] = '\0'; // Добавляем нулевой символ в конец массива
-        capacity=size+2;
+    size = word.size();
+    array = new type[size + 1]; // Добавляем 1 для нулевого символа '\0'
+    // Копируем содержимое строки в массив
+    for (int i = 0; i < size; ++i) {
+      array[i] = word[i];
     }
-vector(initializer_list<type> list) : size(list.size()), array(new type[size]) {
-        int i = 0;
-        for (auto& element : list) {
-            array[i++] = element;
-        }
-        this->capacity=size+1;
+    array[size] = '\0'; // Добавляем нулевой символ в конец массива
+    capacity = size + 2;
+  }
+
+  // создание вектора по принципу v{1,2,3,4}
+  vector(initializer_list<type> list)
+      : size(list.size()), array(new type[size+1]) {
+    int i = 0;
+    for (auto &element : list) {
+      array[i++] = element;
     }
+    this->capacity = size + 1;
+  }
   //очищение памяти
   ~vector() { 
     delete[] array; 
@@ -89,18 +89,29 @@ type back(){
 
 //добавление элемента
 type push_back(type add){
-  temp = new type[size+1];
-  for (int i=0; i<size; i++) {
-    temp[i]=array[i];
+  
+  if (size == capacity) {
+    capacity += 2;
+    temp = new type[size + 1];
+  for (int i = 0; i < size; i++) {
+    temp[i] = array[i];
   }
   delete[] array;
-  size=size+1;
-  array = new type[size];
-    for (int i = 0; i < size-1; i++) {
-      array[i] = temp[i];
-    }
-    array[size-1]=add;
-    delete[] temp;
+     size += 1;
+     array = new type[size];
+  for (int i = 0; i < size - 1; i++) {
+    array[i] = temp[i];
+  }
+  array[size - 1] = add;
+  delete[] temp;
+  } else {
+  array[size]=add;
+  size++;
+  }
+  
+  
+  
+  
 }
 
 //добавление элемента на определенную позицию
@@ -169,10 +180,11 @@ type &operator=(int count) {
 };
 
 template<typename type>
-void show(type *arr){
-  for (int i = 0; typeid(arr[i])==typeid(int*); ++i){
-  cout << &arr[i]<<" ";
+void show(const vector<type>& vec){
+  for (int i = 0; i<vec.size; ++i){
+  cout <<vec.array[i]<<" ";
   }
+  cout<<endl;
 }
 
 int main() {
@@ -196,26 +208,23 @@ int main() {
 cout<<numbers1.capacity<<endl;
 cout<<numbers1.size<<endl;
 
-  for (int i=0; i < 6; i++) {
-    if (typeid(numbers1[i])!=typeid(int*)) {
-    cout << numbers1[i];
-    }
-  }
-cout<<endl;
-show(&numbers1);
+
+show(numbers1);
+
 
 
 // numbers1.push_back(4);
-// for (int i=0; i < 9; i++) {
-//     cout << numbers1[i];
-//   }
-// cout<<endl;
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
 
 // numbers1.push_back(5);
-// for (int i=0; i < 5; i++) {
-//     cout << numbers1[i];
-//   }
-// cout<<endl;
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
+
+
+
 
 // numbers1.insert(9, 4);
 // numbers1.insert(5, 3);
@@ -234,17 +243,3 @@ show(&numbers1);
 
 return 0;
 }
-
-
-
-// clear
-
-// pop_back
-// erase
-
-// size
-// empty
-// resize
-
-// assign
-// swap

@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <ostream>
 #include <string>
 using namespace std;
 
@@ -53,14 +53,17 @@ public:
   }
 
   // создание вектора по принципу v{1,2,3,4}
-  vector(initializer_list<type> list)
-      : size(list.size()), array(new type[size+1]) {
+  vector(std::initializer_list<type> list): size(0), array(nullptr), capacity(0) {
+    size = list.size();
+    array = new type[size + 1];
     int i = 0;
-    for (auto &element : list) {
-      array[i++] = element;
+    for (auto& element : list) {
+        array[i++] = element;
     }
     this->capacity = size + 1;
-  }
+}
+
+
   //очищение памяти
   ~vector() { 
     delete[] array; 
@@ -88,79 +91,111 @@ type back(){
 }
 
 //добавление элемента
-type push_back(type add){
-  
+void push_back(type add) {
+
   if (size == capacity) {
     capacity += 2;
     temp = new type[size + 1];
-  for (int i = 0; i < size; i++) {
-    temp[i] = array[i];
-  }
-  delete[] array;
-     size += 1;
-     array = new type[size];
-  for (int i = 0; i < size - 1; i++) {
-    array[i] = temp[i];
-  }
-  array[size - 1] = add;
-  delete[] temp;
+    for (int i = 0; i < size; i++) {
+      temp[i] = array[i];
+    }
+    delete[] array;
+    size += 1;
+    array = new type[capacity];
+    for (int i = 0; i < size - 1; i++) {
+      array[i] = temp[i];
+    }
+    array[size - 1] = add;
+    array[size]=0;
+    delete[] temp;
   } else {
-  array[size]=add;
-  size++;
+    array[size] = add;
+    size++;
   }
-  
-  
-  
-  
 }
 
 //добавление элемента на определенную позицию
-type insert(type add,type volue){
-  temp = new type[size+1];
+void insert(type add,type volue){
+  
+  temp = new type[size];
   for (int i=0; i<size; i++) {
     temp[i]=array[i];
   }
-  delete[] array;
-  size=size+1;
-  array = new type[size];
+
+  if (size == capacity) {
+    delete[] array;
+    size += 1;
+    capacity += 2;
+    array = new type[capacity];
     for (int i = 0; i < size; i++) {
-      
-      if (i==volue-1) {
-      array[i]=add;
-      } else if (i<volue-1) {
-      array[i] = temp[i];
-      } else if (i>=volue) {
-      array[i] = temp[i-1];
+
+      if (i == volue ) {
+        array[i] = add;
+      } else if (i < volue ) {
+        array[i] = temp[i];
+      } else if (i > volue) {
+        array[i] = temp[i - 1];
       }
     }
-    delete[] temp;
+    array[size] = 0;
+    
+  } else {
+  size += 1;
+  array[volue]=add;
+  for (int i = volue+1; i < size; i++) {
+      array[i]=temp[i-1];
+    }
+  }
+delete[] temp;
 }
 
 // добавление ряда элементов на определенную позицию
-type insert(type add, type n, type volue) {
+void insert(type add, type n, type volue) {
   temp = new type[size];
   for (int i = 0; i < size; i++) {
     temp[i] = array[i];
   }
 
-  delete[] array;
-  size = size + n;
-  array = new type[size];
-  for (int i = 0; i < size; i++) {
+  if (size + n >= capacity) {
+    delete[] array;
+    size = size + n;
+    capacity = size + 1;
+    array = new type[capacity];
 
-    if (i == volue - 1) {
-      for (int j = 0; j < n; j++, i++) {
-        array[i] = add;
+    for (int i = 0; i < size; i++) {
+
+      if (i == volue) {
+        for (int j = 0; j < n; j++, i++) {
+          array[i] = add;
+        }
+        --i;
+      } else if (i < volue) {
+        array[i] = temp[i];
+      } else if (i > volue + n - 1) {
+        array[i] = temp[i - n];
       }
-      --i;
-    } else if (i < volue - 1) {
-      array[i] = temp[i];
-    } else if (i >= volue + n - 1) {
+    }
+  } else {
+    size += n;
+    for (int j = 0, i = volue; j < n; j++, i++) {
+      array[i] = add;
+    }
+    for (int i = volue + n; i < size; i++) {
       array[i] = temp[i - n];
     }
   }
+
   delete[] temp;
 }
+
+//очищение вектора
+void clear() {
+    for (int i = 0; i < size; i++) {
+        array[i] = 0;
+    }
+    size = 0;
+}
+
 
 // перегрузка оператора []
 type &operator[](int position) {
@@ -227,17 +262,24 @@ show(numbers1);
 
 
 // numbers1.insert(9, 4);
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
+
 // numbers1.insert(5, 3);
-// for (int i=0; i < 7; i++) {
-//     cout << numbers1[i];
-// }
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
 
-// numbers1.insert(7,3,4);
-// for (int i=0; i < 8; i++) {
-//      cout << numbers1[i];
-// }
+numbers1.insert(7,3,4);
+cout<<numbers1.capacity<<endl;
+cout<<numbers1.size<<endl;
+show(numbers1);
 
-
+numbers1.clear();
+show(numbers1);
+cout<<numbers1.capacity<<endl;
+cout<<numbers1.size<<endl;
 
 //   cout<<word[3];
 

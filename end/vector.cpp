@@ -196,6 +196,72 @@ void clear() {
     size = 0;
 }
 
+//удаление последнего элемента
+void pop_back(){
+  array[size-1]=0;
+  size-=1;
+}
+
+//удаление элемента под номером
+void erase(int n){
+  
+  for (int i=n; i<size-1; i++) {
+  array[i-1]=array[i];
+  }
+  size--;
+}
+
+//удаление диапозона элементов
+void erase(int begin, int end){
+  
+  for (int i=begin; i<size-(end-begin); i++) {
+  array[i-1]=array[i+(end-begin)];
+  }
+  size=size-(end-begin+1);
+  for (int i=size; i<capacity; i++) {
+  array[size]=0;
+  }
+}
+
+//проверка пустой ли вектор
+int empty(){
+  if (size==0) {
+  return 1;
+  }else {
+    return 0;
+  }
+}
+
+// изменение размера вектора
+void resize(int n) {
+  if (n > size) {
+    if (n > capacity) {
+      capacity = n + 1;
+      temp = new type[n];
+      for (int i = 0; i < size; i++) {
+        temp[i] = array[i];
+      }
+      delete[] array;
+      size = n;
+      array = new type[capacity];
+      for (int i = 0; i < size - 1; i++) {
+        array[i] = temp[i];
+      }
+    }else if (n<size) {
+    for (int i = size; i < n; i++) {
+      array[i] = 0;
+    }
+    size = n;
+    }
+    
+  } else if (n < size) {
+
+    for (int i = n; n < size; i++) {
+      array[i] = 0;
+    }
+    size = n;
+  }
+}
 
 // перегрузка оператора []
 type &operator[](int position) {
@@ -240,11 +306,11 @@ int main() {
 // cout<<numbers1.front()<<endl;
 
 
-cout<<numbers1.capacity<<endl;
-cout<<numbers1.size<<endl;
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
 
 
-show(numbers1);
+// show(numbers1);
 
 
 
@@ -276,10 +342,35 @@ cout<<numbers1.capacity<<endl;
 cout<<numbers1.size<<endl;
 show(numbers1);
 
-numbers1.clear();
-show(numbers1);
+// numbers1.clear();
+// show(numbers1);
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+
+// numbers1.pop_back();
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
+
+// numbers1.erase(3);
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
+
+// numbers1.erase(3,5);
+// cout<<numbers1.capacity<<endl;
+// cout<<numbers1.size<<endl;
+// show(numbers1);
+
+// if(numbers1.empty())
+//         cout << "Vector is empty" << endl;
+//     else
+//         cout << "Vector has size " << numbers1.size << endl;
+
+numbers1.resize(10);
 cout<<numbers1.capacity<<endl;
 cout<<numbers1.size<<endl;
+show(numbers1);
 
 //   cout<<word[3];
 
